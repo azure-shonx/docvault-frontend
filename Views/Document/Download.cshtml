@@ -1,0 +1,14 @@
+@model docvault_frontend.Models.URLRef
+
+@{
+    ViewData["Title"] = "Download";
+}
+
+
+@{
+    if(@Model is null) {
+        <p>Invalid Model</p>
+    } else {
+      <h1><a href="@Model.URL">Download @Model.FileName</a></h1>
+    }
+}

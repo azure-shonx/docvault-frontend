@@ -1,0 +1,50 @@
+﻿@model IEnumerable<docvault_frontend.Models.DocumentRef>
+
+@{
+    ViewData["Title"] = "Documents";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Upload" class="btn btn-primary">Upload</a>
+</p>
+<table class="table">
+    <thead>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tags)
+        </th>
+        <th>
+            Download
+        </th>
+    </thead>
+    <tbody>
+        @foreach(DocumentRef item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @foreach(Tag tag in item.Tags)
+                    {
+                        <div class="tag">
+                            <span style="font-weight: bold">@tag.Key: </span><span>@tag.Value</span>
+                        </div>
+                    }
+                    <a asp-action="Edit" asp-route-FileName="@item.FileName">Edit</a>
+                    <a asp-action="Delete" asp-route-FileName="@item.FileName">Delete</a>
+                </td>
+                <td>
+                    <form asp-controller="Document" asp-action="Download" asp-route-FileName="@item.FileName">
+                        <input type="submit" value="Download" class="btn btn-primary" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+        
+</table>
